@@ -85,7 +85,7 @@ git push origin -u new-name
 ```
 
 ### Merging without conflicts with accpetion ours (current branch) or theirs (branch that we merge into current)
-``bash
+```bash
 git checout master
 git merge feature/mybranch --strategy-option theirs
 ```
