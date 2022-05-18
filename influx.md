@@ -11,7 +11,7 @@ SELECT mean(first_metric), max(second_metric) FROM your_measurement WHERE time >
 
 ### filter by tag and field
 ```
-SELECT * from ipsla_loss where fieldname='key' and tagname='key' limit 1;
+SELECT * from my_measurement where fieldname='key' and tagname='key' limit 1;
 ```
 
 ### query for tag keys on measurement
