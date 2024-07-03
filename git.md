@@ -20,6 +20,7 @@ git stash list
 git stash aply 1 # index from stash list
 git stash pop # retrieve stashed data
 git stash --include-untracked
+git stash push -p # push changes to shash and ack for every change/file
 ```
 
 ### Clean
@@ -51,6 +52,14 @@ git checkout master  # Swithcing to the master branch
 git reset --hard HEAD^  # Resetin gmaster branch to drop errors
 ```
 
+### Rebase your feature onto new changes in master
+```bash
+git checkout mainline
+git pull
+git checkout feature/your-branch
+git rebase mainline
+```
+
 ### Merge multiple commits into 1 with rebase
 #### Number 5 is presening number of commits that we want to merge, starting from current HEAD
 - run following code:
@@ -78,7 +87,7 @@ git ls-files -d -z | xargs -0 git checkout --
 
 ### Rename branch (local and remote)
 ```bash
-git chekcout old-name
+git checkout old-name
 git branch -m old-name new-name
 git push origin --delete old-name
 git push origin -u new-name
@@ -132,3 +141,54 @@ git remote --verbose
 origin  git@github.com:mohovkm/new_name.git (fetch)
 origin  git@github.com:mohovkm/new_name.git (push)
 ```
+
+
+### Add to stage all files except one:
+```bash
+git add . ':!path/to_your-file/dot.txt'
+```
+
+
+### Beautiful logs:
+~/.gitconfig:
+```
+[alias]
+lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+lg = !"git lg1"
+```
+
+
+### Change last commit message
+```shell
+git commit --amend -m "new message"
+```
+
+#### Add new files and change commit
+```shell
+git add some-new-file.py
+git commit --amend -m "new message"
+```
+
+#### Show only commit messsage (to change it later for exmaple)
+```
+git log -1 --format=%B | xargs
+```
+
+#### Copy to clipboard and change commit message:
+```
+git log -1 --format=%B | xargs | pbcopy
+git commit --amend -m "$(pbpaste)"
+```
+
+
+### When you forgot to track remote, and need to set it manually
+```bash
+git branch -u origin/mainline
+branch 'mainline' set up to track 'origin/mainline'.
+```
+
+### Unstage committed file
+`git rm --cached <filePath>` does not unstage a file, it actually stages the removal of the file(s) from the repo (assuming it was already committed before) but leaves the file in your working tree (leaving you with an untracked file).
+
+`git reset -- <filePath>` will unstage any staged changes for the given file(s).

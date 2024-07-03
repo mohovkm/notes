@@ -217,3 +217,57 @@ or
 :%s/\s\+$//e
 ```
 
+### Run specific commands after opeining file
+The vi / vim text editor supports running any : command using the following syntax:
+```bash
+vi +commandHere fileName
+# OR
+vi +LineNumber fileName
+```
+
+### Start terminal from vim:
+```vm
+:edit term://bash
+```
+
+### Sort lines:
+```
+:{range}!{filter}
+```
+
+Example: split by space (`-t\s`) and sort by second column (`-k2`) the whole range (`%`)
+```
+:%!sort -t\s -k2
+```
+
+Example: split by comma (`-t,`) and sort by third column (`-k3`) the whole range (`%`)
+```
+:%!sort -t\s -k2
+```
+
+### insert sequnce (number)
+1. Press `Shift-i`, enter 0 (this is 0, followed by dot and Space) and Esc to exit insert mode.
+2. Use `gv` to re-select the previously selected area. 
+3. Press `g Ctrl-a` to create a sequence.
+
+### Working with jobs in vim:
+
+#### To suspend current job
+```
+Ctrl+z
+```
+
+#### To bring back last job
+```
+fg
+```
+
+#### To list all background jobs
+```
+jobs
+```
+
+#### To bring back only one job
+```
+fg %3
+```

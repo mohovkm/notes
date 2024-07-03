@@ -45,6 +45,11 @@ reset
 tar -xvzf archive.tar.gz -C directory
 ```
 
+### Compress with tar
+```bash
+tar -czf name_of_archive_file.tar.gz name_of_directory_to_tar
+```
+
 ### Compress pdf with ghostscript
 
 #### Install it with brew:
@@ -98,3 +103,34 @@ rsync -aP --exclude=file_exclude.md --exclude=.git/ ../old_folder/* .
 grep -ir "text_to_search" .
 ```
 
+#### Reversed grep (invert | reversing)
+```bash
+grep -v "text" somefile.txt
+```
+
+### Get last several characters
+```bash
+echo ${foo: -3} # get last 3 characters
+echo ${foo##*.} # get last characters to "." (dot)
+
+```
+
+### Grep infromation from files recursibely, get filename from that and print only unique:
+```bash
+grep -irn "retention" . | awk -F: '{print $1}' | sort -u
+```
+
+### Grep subdirectories and show 1 line before (parent)
+```
+ls */ | grep --color -i -B 1 "pattern"
+```
+- `-B {number}` - show lines before match
+- `-A {number}` - show lines after match
+
+### Working with JQ
+- https://www.baeldung.com/linux/jq-command-json
+
+### Recursevly go to subdirectories and checking git
+```
+current_dir=$(pwd); for i in $(ls -1); (cd $(pwd)/$i/; echo "$i $( git rev-parse --abbrev-ref HEAD)"; git checkout mainline);
+```

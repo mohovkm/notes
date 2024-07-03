@@ -5,6 +5,15 @@ sudo fuser 3306/tcp
 sudo kill -9 651510
 ```
 
+```
+sudo netstat -nlp | grep :8080
+```
+
+#### macos:
+```
+sudo lsof -i -P | grep LISTEN | grep :$PORT
+```
+
 ### Find ip addres that belongs to the DNS name:
 ```bash
 nslookup https://address_to_find.com
@@ -56,4 +65,14 @@ ssh-copy-id -i ~/.ssh/other_key.pub user@remote-host
 3. Copy key from another user
 ```bash
 kmokhov@server1$ scp /home/another_user/.ssh/id_rsa.pub server_ip:/home/another_user/.ssh/authorized_keys
+```
+
+### Copy with scp using proxy
+```bash
+scp -o "ProxyJump <User>@<Proxy-Server>" <File-Name> <User>@<Destination-Server>:<Destination-Path>
+```
+
+Example:
+```
+scp -o "ProxyJump login@8.8.8.8" myarchive.tgz login@10.0.111.222:.
 ```
